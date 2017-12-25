@@ -28,7 +28,7 @@ class SpecialOWLwikiForms extends SpecialPage {
 		global $wgOut, $wgRequest, $wgScript, $owfgSparqlQueryEndpoint, $inOntosStr;
 
 //		$wgOut->setPageTitle ( "OWL Wiki Forms" );
-		$wgOut->setPageTitle ( wfMsg( 'owlwikiforms') );  // Thanks to Cameron Angus McLean
+		$wgOut->setPageTitle ( wfMessage( 'owlwikiforms') );  // Thanks to Cameron Angus McLean
 		$action = $wgRequest->getText( 'action' );
 		if ( $action == 'generate' ) {
 			$inOntosStr = $wgRequest->getText( 'InOntosStr' );
