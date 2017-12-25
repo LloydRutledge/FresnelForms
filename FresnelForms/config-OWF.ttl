@@ -1,0 +1,38 @@
+# Adapted by Lloyd Rutledge from example config file from download
+
+@prefix :        <#> .
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+
+[] rdf:type fuseki:Server ;
+   fuseki:services ( <#serviceOWF> ) .
+
+<#serviceOWF> rdf:type fuseki:Service ;
+    fuseki:name                        "OWF" ; 
+    fuseki:serviceQuery                "sparql" ;
+    fuseki:serviceQuery                "query" ;
+    fuseki:serviceUpdate               "update" ;
+    fuseki:serviceUpload               "upload" ;
+    fuseki:serviceReadWriteGraphStore  "data" ;     
+    fuseki:serviceReadGraphStore       "get" ;
+    fuseki:serviceReadGraphStore       "" ;      
+    fuseki:dataset                     <#OWF> ;
+    .
+
+[] ja:loadClass "com.hp.hpl.jena.tdb.TDB" .
+tdb:DatasetTDB  rdfs:subClassOf  ja:RDFDataset .
+tdb:GraphTDB    rdfs:subClassOf  ja:Model .
+
+<#OWF>
+    a ja:RDFDataset ;
+    rdfs:label "OWF" ;
+    ja:defaultGraph 
+      [ rdfs:label "OWF" ;
+        ja:reasoner <#Reasoner>
+      ] 
+    .
+
+<#Reasoner> ja:reasonerURL<http://jena.hpl.hp.com/2003/OWLFBRuleReasoner> .
