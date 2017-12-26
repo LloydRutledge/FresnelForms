@@ -3,7 +3,7 @@ $messages = array
 (
     'en' => array
     (
-        'owlwikiforms' => 'OWL Wiki Forms'
+        'fresnelforms' => 'Fresnel Forms'
     )
 );
 $aliases = array();

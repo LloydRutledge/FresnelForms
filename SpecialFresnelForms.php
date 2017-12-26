@@ -17,10 +17,10 @@ define("PREFIXES",
 EOT
 );
 
-class SpecialOWLwikiForms extends SpecialPage {
+class SpecialFresnelForms extends SpecialPage {
 
 	public function __construct() {
-		parent::__construct     ('OWLwikiForms') ;
+		parent::__construct     ('FresnelForms') ;
 		// wfLoadExtensionMessages removed thanks to Cameron Angus McLean
 	}
 
@@ -28,7 +28,7 @@ class SpecialOWLwikiForms extends SpecialPage {
 		global $wgOut, $wgRequest, $wgScript, $owfgSparqlQueryEndpoint, $inOntosStr;
 
 //		$wgOut->setPageTitle ( "OWL Wiki Forms" );
-		$wgOut->setPageTitle ( wfMessage( 'owlwikiforms') );  // Thanks to Cameron Angus McLean
+		$wgOut->setPageTitle ( wfMessage( 'fresnelforms') );  // Thanks to Cameron Angus McLean in OWF
 		$action = $wgRequest->getText( 'action' );
 		if ( $action == 'generate' ) {
 			$inOntosStr = $wgRequest->getText( 'InOntosStr' );
