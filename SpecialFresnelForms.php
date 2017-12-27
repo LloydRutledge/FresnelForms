@@ -21,14 +21,12 @@ class SpecialFresnelForms extends SpecialPage {
 
 	public function __construct() {
 		parent::__construct     ('FresnelForms') ;
-		// wfLoadExtensionMessages removed thanks to Cameron Angus McLean
 	}
 
 	public function execute( $par ) {
 		global $wgOut, $wgRequest, $wgScript, $owfgSparqlQueryEndpoint, $inOntosStr;
 
-//		$wgOut->setPageTitle ( "OWL Wiki Forms" );
-		$wgOut->setPageTitle ( wfMessage( 'fresnelforms') );  // Thanks to Cameron Angus McLean in OWF
+		$wgOut->setPageTitle ( wfMessage( 'fresnelforms') );
 		$action = $wgRequest->getText( 'action' );
 		if ( $action == 'generate' ) {
 			$inOntosStr = $wgRequest->getText( 'InOntosStr' );
@@ -54,10 +52,10 @@ function ontos2DefFresnel ( $inOntosStr ) {
 
 	$inOntoArr=explode(",",$inOntosStr);        // Split comma-seperated URIs
 	
-	endpointUpd ('CLEAR ALL');                  // Empty endpoint
-	foreach ($inOntoArr as $inOnto) {           // For each URI
-		endpointUpd ('LOAD <' . $inOnto . '>'); // Load ontology to endpoint
-	}
+// short term preload instead cuz LOAD doens't work from here	endpointUpd ('CLEAR ALL');                  // Empty endpoint
+// short term preload instead cuz LOAD doens't work from here	foreach ($inOntoArr as $inOnto) {           // For each URI
+// short term preload instead cuz LOAD doens't work from here		endpointUpd ('LOAD <' . $inOnto . '>'); // Load ontology to endpoint
+// short term preload instead cuz LOAD doens't work from here	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	// Generate Fresnel triples
@@ -324,7 +322,7 @@ function frmRow ( $propName , $autocomp , $frmsParams ) {
 function makePage ( $prefix , $name , $content ) {
 	if ( $content == '' ) $content =  '<span> </span>' ;
 	$newarticle = new Article(Title::newFromText( $prefix . ':' . $name ) , 0);
-	$newarticle->doEdit( $content , EDIT_UPDATE);
+// stop until can get working	$newarticle->doEdit( $content , EDIT_UPDATE);
 }
 
 function makeCategoryPage ( $catName ) {
