@@ -41,7 +41,7 @@ class SpecialFresnelForms extends SpecialPage {
 
 		$html = '<form name="generate" action="" method="POST">' . "\n" .
 				'<input type="hidden" name="action" value="generate" />' . "\n" .
-				'URIs of ontologies to generate interface from: <input size="75" name="InOntosStr" value="" />' . "\n" .
+//				'URIs of ontologies to generate interface from: <input size="75" name="InOntosStr" value="" />' . "\n" .
 				'<input type="submit" value="Generate"/></form>' . "\n";
 		$wgOut->addHTML( $html );
 	}
