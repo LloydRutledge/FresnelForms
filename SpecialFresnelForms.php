@@ -324,7 +324,7 @@ function makePage ( $prefix , $name , $content ) {
 	if ( $content == '' ) $content =  '<span> </span>' ;
 	$newarticle = new Article(Title::newFromText( $prefix . ':' . $name ) , 0);
 // stop until can get working	$newarticle->doEdit( $content , EDIT_UPDATE);
-   	$wgOut->addWikiText ( "<pre><nowiki>" . $prefix . ":" . $name . "\n\n" . $content . "</nowiki></pre>" ); // page code on special page
+   	$wgOut->addWikiText ( "= [[" . $prefix . ":" . $name . "]] =\n\n<pre><nowiki>" . $content . "</nowiki></pre>" ); // page code on special page
 }
 
 function makeCategoryPage ( $catName ) {
