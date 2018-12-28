@@ -29,7 +29,7 @@ class SpecialFresnelForms extends SpecialPage {
 		$wgOut->setPageTitle ( wfMessage( 'fresnelforms') );
 		$action = $wgRequest->getText( 'action' );
 		if ( $action == 'generate' ) {
-			$inOntosStr = $wgRequest->getText( 'InOntosStr' );
+		    $inOntosStr = $wgRequest->getText( 'InOntosStr' );
 			ontos2DefFresnel ( $inOntosStr ) ;
 			$domStr = allFresnel2wiki  ( $inOntosStr ) ;
 
@@ -335,14 +335,14 @@ function makeCategoryPage ( $catName ) {
 
 function makePropertyPage ( $propName , $propURI , $hasType , $defForm ) {
 	$pageContent = "" ;
-	$pageContent = $pageContent . annotConstruct ( $hasType , "This property has type [[Has type::"                   ) ;
-	$pageContent = $pageContent . annotConstruct ( $propURI , "Equivalent URI is [[Equivalent URI::"                  ) ;
-	$pageContent = $pageContent . annotConstruct ( $defForm , "This property uses the form [[Has default form::Form:" ) ;
+	$pageContent = $pageContent . annotConstruct ( $hasType , "[[Has type::"              ) ;
+	$pageContent = $pageContent . annotConstruct ( $propURI , "[[Equivalent URI::"        ) ;
+    $pageContent = $pageContent . annotConstruct ( $defForm , "[[Has default form::Form:" ) ;
 	makePage ( 'Property' , $propName , $pageContent ) ;	
 }
 
 function annotConstruct ( $value , $text ) {
-	if ( $value ) return $text . $value . "]]. " ;
+	if ( $value ) return $text . $value . "| ]]" ;
 	else return "" ;
 }
 
