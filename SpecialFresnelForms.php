@@ -352,16 +352,14 @@ function makeTemplatePage ( $boxName , $TplRows ) {
 
 	$TplStr =
 '<includeonly>
-{| {{InformboxTableStart|AClass}}
+{| {{InformboxTableStart|' . $boxName . '}}
 ';
 	
 	// End of Template page
 
 	$TplEnd =
 '|}
-
-[[Category:' . $boxName . ']]
-{{#ifexist: Template:InformboxTop ' . $boxName . '|{{InformboxTop ' . $boxName . '}}| }}
+{{InformboxEnd|' . $boxName . '}}
 </includeonly>
 ';
 
