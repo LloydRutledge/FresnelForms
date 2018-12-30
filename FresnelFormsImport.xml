@@ -33,29 +33,24 @@
     </namespaces>
   </siteinfo>
   <page>
-    <title>Template:Informbox AClass</title>
+    <title>Template:InformboxTableStart</title>
     <ns>10</ns>
-    <id>689</id>
+    <id>693</id>
     <revision>
-      <id>1475</id>
-      <parentid>1473</parentid>
-      <timestamp>2018-12-30T19:52:53Z</timestamp>
+      <id>1480</id>
+      <parentid>1471</parentid>
+      <timestamp>2018-12-30T20:25:54Z</timestamp>
       <contributor>
         <username>Lloyd Rutledge</username>
         <id>1</id>
       </contributor>
-      <comment>{{InformboxEnd|AClass}}</comment>
+      <comment>&lt;includeonly&gt;</comment>
       <model>wikitext</model>
       <format>text/x-wiki</format>
-      <text xml:space="preserve" bytes="233">&lt;includeonly&gt;
-{| {{InformboxTableStart|AClass}}
-|- {{#if: {{{aProperty|}}}||style=&quot;display:none&quot;}}
-! [[Property:aProperty|aProperty]]
-| {{#arraymap:{{{aProperty|}}}|,|xxx|[[aProperty::xxx]]}}
-|}
-{{InformboxEnd|AClass}}
+      <text xml:space="preserve" bytes="405">&lt;includeonly&gt;style=&quot;width: 30em; font-size: 90%; border: 1px solid #aaaaaa; background-color: #f9f9f9; color: black; margin-bottom: 0.5em; margin-left: 1em; padding: 0.2em; float: right; clear: right; text-align:left;&quot;
+! style=&quot;text-align: center; background-color:#ccccff;&quot; colspan=&quot;2&quot; |&lt;big&gt;[[:Category:{{{1| }}}|{{{1| }}}]] data&lt;/big&gt; [[Special:FormEdit/{{{1| }}}/{{FULLPAGENAME}}|form]]
 &lt;/includeonly&gt;</text>
-      <sha1>tqxdv9u4iqhbpgrbe36gh2mujk8hf8o</sha1>
+      <sha1>l0zakuwo2ooweruxka4z14806te4j2m</sha1>
     </revision>
   </page>
   <page>
