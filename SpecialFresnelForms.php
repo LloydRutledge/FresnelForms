@@ -141,18 +141,31 @@ EOT
 		$domain = qryRtnCell ( $qryRtnArrDom , $key , 'domain' ) ;
 	
 		//  Query properties with the class as domain
-		$qryRtnArr = endpointQry ( '
+		$qryRtnArr1 = endpointQry ( '
 		SELECT DISTINCT ?prop
 		WHERE {
 			?lens fresnel:classLensDomain <' . $domain . '> ;
-			      fresnel:showProperties  ?prop               .
-            ?prop rdf:type                rdf:property        .
+			      fresnel:showProperties   ?list    .
+            ?list rdf:first                ?prop  ;
+                  rdf:rest                 ?rest    .
 			OPTIONAL {?lens fresnel:hideProperties  ?prop, ?hideDetect  }
 			FILTER ( !bound (?hideDetect) )
 		}
 		ORDER BY ?prop
-	' );
-	
+' );
+		$qryRtnArr2 =  endpointQry ( '
+		SELECT DISTINCT ?prop
+		WHERE {
+			?lens fresnel:classLensDomain <' . $domain . '> ;
+			      fresnel:showProperties  ?prop               .
+		    ?prop rdf:type                rdf:property        .
+			OPTIONAL {?lens fresnel:hideProperties  ?prop, ?hideDetect  }
+			FILTER ( !bound (?hideDetect) )
+		}
+		ORDER BY ?prop
+' );
+		
+		$qryRtnArr = array_merge ( $qryRtnArr1 , $qryRtnArr2 ) ;
 		if      ( strpos  ($domain , '#' )) $domain = substr ( $domain , 1 + strpos  ( $domain , '#' ) );
 		else if ( strrpos ($domain , '/' )) $domain = substr ( $domain , 1 + strrpos ( $domain , '/' ) );
 		$propsCell = writeBox ( $domain , $qryRtnArr );  // Create the box wiki pages
