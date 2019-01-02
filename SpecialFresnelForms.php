@@ -145,7 +145,8 @@ EOT
 		SELECT DISTINCT ?prop
 		WHERE {
 			?lens fresnel:classLensDomain <' . $domain . '> ;
-			      fresnel:showProperties  ?prop .
+			      fresnel:showProperties  ?prop               .
+            ?prop rdf:type                rdf:property        .
 			OPTIONAL {?lens fresnel:hideProperties  ?prop, ?hideDetect  }
 			FILTER ( !bound (?hideDetect) )
 		}
