@@ -30,7 +30,7 @@ class SpecialFresnelForms extends SpecialPage {
 		$action = $wgRequest->getText( 'action' );
 		if ( $action == 'generate' ) {
 		    $inOntosStr = $wgRequest->getText( 'InOntosStr' );
-			ontos2DefFresnel ( $inOntosStr ) ;
+			//ontos2DefFresnel ( $inOntosStr ) ;
 			$domStr = allFresnel2wiki  ( $inOntosStr ) ;
 
 			$wgOut->addWikiText ( '= OWL Wiki Forms ='                                 );
@@ -165,7 +165,7 @@ EOT
 		ORDER BY ?prop
 ' );
 		
-		$qryRtnArr = array_merge ( $qryRtnArr1 , $qryRtnArr2 ) ;
+		$qryRtnArr = array_merge_recursive ( $qryRtnArr1 , $qryRtnArr2 ) ;
 		if      ( strpos  ($domain , '#' )) $domain = substr ( $domain , 1 + strpos  ( $domain , '#' ) );
 		else if ( strrpos ($domain , '/' )) $domain = substr ( $domain , 1 + strrpos ( $domain , '/' ) );
 		$propsCell = writeBox ( $domain , $qryRtnArr );  // Create the box wiki pages
