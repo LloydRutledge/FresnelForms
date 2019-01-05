@@ -125,7 +125,25 @@ function allFresnel2wiki ( $inOntosStr ) {
 	// Query Fresnel triples
 	///////////////////////////////////////////////////////////////////////////
 	
-	// Query all classes for which Fresnel lenses were made
+    // Common substrings for this function's SPARQL queries at start and end
+    // with difference in between
+
+    $showPQryStart = '
+		SELECT DISTINCT ?prop
+		WHERE {
+			?lens fresnel:classLensDomain <' ;
+    
+    $showPQryMid = '> ;
+			      fresnel:showProperties   ' ;
+    
+    $showPQryEnd = '
+			OPTIONAL {?lens fresnel:hideProperties  ?prop, ?hideDetect  }
+			FILTER ( !bound (?hideDetect) )
+		}
+		ORDER BY ?prop
+' ;
+    
+    // Query all classes for which Fresnel lenses were made
 	$qryRtnArrDom = endpointQry ( <<<EOT
 		SELECT DISTINCT ?domain
 		WHERE { ?lens fresnel:classLensDomain  ?domain }
@@ -141,29 +159,13 @@ EOT
 		$domain = qryRtnCell ( $qryRtnArrDom , $key , 'domain' ) ;
 	
 		//  Query properties with the class as domain
-		$qryRtnArr1 = endpointQry ( '
-		SELECT DISTINCT ?prop
-		WHERE {
-			?lens fresnel:classLensDomain <' . $domain . '> ;
-			      fresnel:showProperties   ?list    .
+		
+		$showPQryStartMid = $showPQryStart .  $domain . $showPQryMid ;
+		$qryRtnArr1 = endpointQry ( $showPQryStartMid . ' ?list .
             ?list rdf:first                ?prop  ;
-                  rdf:rest                 ?rest    .
-			OPTIONAL {?lens fresnel:hideProperties  ?prop, ?hideDetect  }
-			FILTER ( !bound (?hideDetect) )
-		}
-		ORDER BY ?prop
-' );
-		$qryRtnArr2 =  endpointQry ( '
-		SELECT DISTINCT ?prop
-		WHERE {
-			?lens fresnel:classLensDomain <' . $domain . '> ;
-			      fresnel:showProperties  ?prop               .
-		    ?prop rdf:type                rdf:property        .
-			OPTIONAL {?lens fresnel:hideProperties  ?prop, ?hideDetect  }
-			FILTER ( !bound (?hideDetect) )
-		}
-		ORDER BY ?prop
-' );
+                  rdf:rest                 ?rest    . ' . $showPQryEnd ) ;
+		$qryRtnArr2 =  endpointQry ( $showPQryStartMid . ' ?prop               .
+		    ?prop rdf:type                rdf:property        . ' . $showPQryEnd ) ;
 		
 		$qryRtnArr = array_merge_recursive ( $qryRtnArr1 , $qryRtnArr2 ) ;
 		if      ( strpos  ($domain , '#' )) $domain = substr ( $domain , 1 + strpos  ( $domain , '#' ) );
