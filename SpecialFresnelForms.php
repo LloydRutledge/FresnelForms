@@ -161,13 +161,21 @@ EOT
 		//  Query properties with the class as domain
 		
 		$showPQryStartMid = $showPQryStart .  $domain . $showPQryMid ;
-		$qryRtnArr1 = endpointQry ( $showPQryStartMid . ' ?list .
-            ?list rdf:first                ?prop  ;
-                  rdf:rest                 ?rest    . ' . $showPQryEnd ) ;
-		$qryRtnArr2 =  endpointQry ( $showPQryStartMid . ' ?prop               .
-		    ?prop rdf:type                rdf:property        . ' . $showPQryEnd ) ;
+		$qryRtnSorted = endpointQry ( 
+		    $showPQryStartMid 
+		    . ' ?list .
+               ?list rdf:first ?prop ;
+                     rdf:rest  ?rest   . ' 
+		    . $showPQryEnd 
+		    ) ;
+		$qryRtnUnsorted =  endpointQry ( 
+		    $showPQryStartMid 
+		    . ' ?prop .
+		       ?prop rdf:type rdf:property . ' 
+		    . $showPQryEnd 
+		    ) ;
 		
-		$qryRtnArr = array_merge_recursive ( $qryRtnArr1 , $qryRtnArr2 ) ;
+		$qryRtnArr = array_merge_recursive ( $qryRtnSorted , $qryRtnUnsorted ) ;
 		if      ( strpos  ($domain , '#' )) $domain = substr ( $domain , 1 + strpos  ( $domain , '#' ) );
 		else if ( strrpos ($domain , '/' )) $domain = substr ( $domain , 1 + strrpos ( $domain , '/' ) );
 		$propsCell = writeBox ( $domain , $qryRtnArr );  // Create the box wiki pages
