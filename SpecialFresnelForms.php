@@ -129,7 +129,7 @@ function allFresnel2wiki ( $inOntosStr ) {
     // with difference in between
 
     $showPQryStart = '
-		SELECT DISTINCT ?prop
+		SELECT DISTINCT *
 		WHERE {
 			?lens fresnel:classLensDomain <' ;
     
@@ -161,6 +161,12 @@ EOT
 		//  Query properties with the class as domain
 		
 		$showPQryStartMid = $showPQryStart .  $domain . $showPQryMid ;
+		$qryRtnUnsorted =  endpointQry (
+		    $showPQryStartMid
+		    . ' ?prop .
+		       ?prop rdf:type rdf:property . '
+		    . $showPQryEnd
+		    ) ;
 		$qryRtnSorted = endpointQry ( 
 		    $showPQryStartMid 
 		    . ' ?list .
@@ -168,12 +174,9 @@ EOT
                      rdf:rest  ?rest   . ' 
 		    . $showPQryEnd 
 		    ) ;
-		$qryRtnUnsorted =  endpointQry ( 
-		    $showPQryStartMid 
-		    . ' ?prop .
-		       ?prop rdf:type rdf:property . ' 
-		    . $showPQryEnd 
-		    ) ;
+		$restProps = $qryRtnSorted['results']['bindings'][0]['rest']['value'];
+		$restQryRtn = endpointQry ( 'SELECT DISTINCT * WHERE { _:' . $restProps . ' rdf:first ?prop ; rdf:rest ?rest .} ORDER BY ?prop' ) ;
+		$qryRtnSorted = array_merge_recursive ( $qryRtnSorted , $restQryRtn ) ;
 		
 		$qryRtnArr = array_merge_recursive ( $qryRtnSorted , $qryRtnUnsorted ) ;
 		if      ( strpos  ($domain , '#' )) $domain = substr ( $domain , 1 + strpos  ( $domain , '#' ) );
